@@ -19,17 +19,17 @@ public class Maincontrol : MonoBehaviour
     public AudioSource BGM;
     private double trackStartTime;
     private double BPM=244;
-    private double nextTick=0.0F;
+    private double nextTick=4;
     public double Timeline;
     private double Goodoffset=0.025;
     public double OKoffset=0.075;
-    private double Timeoffset=1.2;
+    public double Timeoffset=1.2;
     private int combo=0;
     private int score=0;
+    public double BGMoffset=-0.074;
 
     public GameObject noteR;
     public GameObject noteB;
-    //private ArrayList note=new ArrayList();
     LinkedList<GameObject> note=new LinkedList<GameObject>();
     private GameObject k;
     void Start()
@@ -42,7 +42,7 @@ public class Maincontrol : MonoBehaviour
         Timeline=AudioSettings.dspTime-trackStartTime;
         if(Timeline>=nextTick*60.0/BPM-Timeoffset)
         {
-            if(Random.Range(0,2)==1)createnoteB(nextTick*60/BPM);else createnoteR(nextTick*60/BPM);
+            if(Random.Range(0,2)==1)createnoteB(nextTick*60/BPM);else createnoteB(nextTick*60/BPM);
             nextTick++;
         }
         if(note.Count!=0)
@@ -158,12 +158,13 @@ public class Maincontrol : MonoBehaviour
     }
     public void StartMusic()
     {
-        trackStartTime=AudioSettings.dspTime + 3;
-        BGM.PlayScheduled(trackStartTime);
+        trackStartTime=AudioSettings.dspTime + 2;
+        BGM.PlayScheduled(trackStartTime+BGMoffset);
     }
     private void createnoteB(double centertime)
     {
         k=Instantiate(noteB);
+        k.GetComponent<Click>().speed=14.5/Timeoffset;
         k.GetComponent<Click>().Centerjudge=centertime;
         k.transform.SetParent(taikobar.transform);
         note.AddLast(k);
@@ -171,6 +172,7 @@ public class Maincontrol : MonoBehaviour
     private void createnoteR(double centertime)
     {
         k=Instantiate(noteR);
+        k.GetComponent<Click>().speed=14.5/Timeoffset;
         k.GetComponent<Click>().Centerjudge=centertime;
         k.transform.SetParent(taikobar.transform);
         note.AddLast(k);

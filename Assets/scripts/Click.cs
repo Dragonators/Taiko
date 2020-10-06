@@ -8,9 +8,16 @@ public class Click : MonoBehaviour
 {
     public double Centerjudge;
     public bool notetype;
+    public double Timeoffset=1;
+    private double t=0;
     private bool BeginDestroy=false;
+    private Vector3 velocity = Vector3.zero;
+    public double speed;
+    public float sum=0;
 
     // Start is called before the first frame update
+    //969.8 541.3 99.4
+    //955.3 541.3 99.4
 
     void Start()
     {
@@ -20,7 +27,7 @@ public class Click : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.Translate(-12*Time.deltaTime,0,0);
+        this.transform.Translate(Vector3.left*(float)speed*Time.deltaTime,Space.World);
         if(BeginDestroy)fade();
     }
     private void fade() 

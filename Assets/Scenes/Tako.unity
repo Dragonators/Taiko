@@ -753,6 +753,8 @@ MonoBehaviour:
   BGM: {fileID: 1122118158}
   Timeline: 0
   OKoffset: 0.075
+  Timeoffset: 1.2
+  BGMoffset: 0
   noteR: {fileID: 9215760746032043986, guid: 9c7ede49ff8345145bbb71b6f8455b5f, type: 3}
   noteB: {fileID: 9015069910679778328, guid: 23c90e8807b69534c84b8bb5c5018b98, type: 3}
 --- !u!1 &705507993
