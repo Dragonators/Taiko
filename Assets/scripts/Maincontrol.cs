@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class Maincontrol : MonoBehaviour
 {
@@ -41,7 +42,6 @@ public class Maincontrol : MonoBehaviour
     void Start()
     {
         StartMusic();
-        FirstS=Instantiate(S300);
     }
     // Update is called once per frame
     void Update()
@@ -74,6 +74,7 @@ public class Maincontrol : MonoBehaviour
             if(pause.activeSelf)
             {
                 double.TryParse(Offset.text,out staticsetting.BGMoffset);
+                staticsetting.BGMoffset=staticsetting.BGMoffset/1000;
                 pause.SetActive(false);
                 Time.timeScale=1;
                 ifpause=false;
@@ -223,5 +224,13 @@ public class Maincontrol : MonoBehaviour
         FirstS.transform.SetParent(taikobar.transform);
     }
     public void Delnote(){note.RemoveFirst();}
+    public void Restart()
+    {
+        double.TryParse(Offset.text,out staticsetting.BGMoffset);
+        staticsetting.BGMoffset=staticsetting.BGMoffset/1000;
+        pause.SetActive(false); 
+        Time.timeScale=1;
+        SceneManager.LoadScene("Taiko");
+    }
 
 }
