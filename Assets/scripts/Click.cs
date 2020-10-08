@@ -9,7 +9,6 @@ public class Click : MonoBehaviour
     public double Centerjudge;
     public bool notetype;
     public double Timeoffset=1;
-    private double t=0;
     private bool BeginDestroy=false;
     private Vector3 velocity = Vector3.zero;
     public double speed;

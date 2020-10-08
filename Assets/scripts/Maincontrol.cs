@@ -14,6 +14,7 @@ public class Maincontrol : MonoBehaviour
     public GameObject taikobar;
     public GameObject Score;
     public GameObject Combo;
+    public GameObject pause;
 
     public AudioSource clip;
     public AudioSource BGM;
@@ -23,41 +24,69 @@ public class Maincontrol : MonoBehaviour
     public double Timeline;
     private double Goodoffset=0.025;
     public double OKoffset=0.075;
-    public double Timeoffset=1.2;
+    public double Timeoffset=1.2;//note speed
     private int combo=0;
     private int score=0;
-    public double BGMoffset=-0.074;
+    private bool ifpause=false;
 
     public GameObject noteR;
     public GameObject noteB;
+    public GameObject S100;
+    public GameObject S300;
+
     LinkedList<GameObject> note=new LinkedList<GameObject>();
     private GameObject k;
+    private GameObject FirstS=null;
+    public Text Offset;
     void Start()
     {
         StartMusic();
+        FirstS=Instantiate(S300);
     }
     // Update is called once per frame
     void Update()
     {
-        Timeline=AudioSettings.dspTime-trackStartTime;
-        if(Timeline>=nextTick*60.0/BPM-Timeoffset)
+        if(!ifpause)
         {
-            if(Random.Range(0,2)==1)createnoteB(nextTick*60/BPM);else createnoteB(nextTick*60/BPM);
-            nextTick++;
-        }
-        if(note.Count!=0)
-        {
-            if(note.First.Value.GetComponent<Click>().Centerjudge+OKoffset<=Timeline)
+            Timeline=AudioSettings.dspTime-trackStartTime;
+            if(Timeline>=nextTick*60.0/BPM-Timeoffset)
             {
-                note.First.Value.GetComponent<Click>().falseclick();
-                note.RemoveFirst();
+                if(Random.Range(0,2)==1)createnoteB(nextTick*60/BPM);else createnoteR(nextTick*60/BPM);
+                nextTick++;
             }
-            judgement();
+            if(note.Count!=0)
+            {
+                if(note.First.Value.GetComponent<Click>().Centerjudge+OKoffset<=Timeline)
+                {
+                    note.First.Value.GetComponent<Click>().falseclick();
+                    note.RemoveFirst();
+                }
+                judgement();
+            }
+            Pressshow();
+            soundeffect();
+            Score.GetComponent<Text>().text=score.ToString();
+            Combo.GetComponent<Text>().text=combo.ToString();             
         }
-        Pressshow();
-        soundeffect();
-        Score.GetComponent<Text>().text=score.ToString();
-        Combo.GetComponent<Text>().text=combo.ToString();
+        else trackStartTime=AudioSettings.dspTime-Timeline;
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(pause.activeSelf)
+            {
+                double.TryParse(Offset.text,out staticsetting.BGMoffset);
+                pause.SetActive(false);
+                Time.timeScale=1;
+                ifpause=false;
+                BGM.Play();
+            }
+            else 
+            {
+                pause.SetActive(true);
+                Time.timeScale=0;
+                ifpause=true;
+                BGM.Pause();
+            }
+        }
     }
     private void Pressshow()
     {
@@ -83,6 +112,7 @@ public class Maincontrol : MonoBehaviour
                     a.GetComponent<Click>().click();
                     combo++;
                     score+=300;
+                    showgreat();
                 }
                 else if(a.GetComponent<Click>().Centerjudge-OKoffset<=Timeline&&a.GetComponent<Click>().Centerjudge+OKoffset>=Timeline)
                 {
@@ -90,6 +120,7 @@ public class Maincontrol : MonoBehaviour
                     a.GetComponent<Click>().click();
                     combo++;
                     score+=100;
+                    showgood();
                 }
                 else if(Timeline<a.GetComponent<Click>().Centerjudge-OKoffset&&Timeline>a.GetComponent<Click>().Centerjudge-0.15)
                 {
@@ -120,6 +151,7 @@ public class Maincontrol : MonoBehaviour
                     a.GetComponent<Click>().click();
                     combo++;
                     score+=300;
+                    showgreat();
                 }
                 else if(a.GetComponent<Click>().Centerjudge-OKoffset<=Timeline&&a.GetComponent<Click>().Centerjudge+OKoffset>=Timeline)
                 {
@@ -127,6 +159,7 @@ public class Maincontrol : MonoBehaviour
                     a.GetComponent<Click>().click();
                     combo++;
                     score+=100;
+                    showgood();
                 }
                 else if(Timeline<a.GetComponent<Click>().Centerjudge-OKoffset&&Timeline>a.GetComponent<Click>().Centerjudge-0.15)
                 {
@@ -159,7 +192,7 @@ public class Maincontrol : MonoBehaviour
     public void StartMusic()
     {
         trackStartTime=AudioSettings.dspTime + 2;
-        BGM.PlayScheduled(trackStartTime+BGMoffset);
+        BGM.PlayScheduled(trackStartTime+staticsetting.BGMoffset);//如果-2及以上会有bug
     }
     private void createnoteB(double centertime)
     {
@@ -176,6 +209,18 @@ public class Maincontrol : MonoBehaviour
         k.GetComponent<Click>().Centerjudge=centertime;
         k.transform.SetParent(taikobar.transform);
         note.AddLast(k);
+    }
+    public void showgood()
+    {
+        if(FirstS!=null){FirstS.GetComponent<showanime>().Del();}
+        FirstS=Instantiate(S100);
+        FirstS.transform.SetParent(taikobar.transform);
+    }
+    public void showgreat()
+    {
+        if(FirstS!=null){FirstS.GetComponent<showanime>().Del();}
+        FirstS=Instantiate(S300);
+        FirstS.transform.SetParent(taikobar.transform);
     }
     public void Delnote(){note.RemoveFirst();}
 
