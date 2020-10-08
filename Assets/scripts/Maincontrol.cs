@@ -39,9 +39,11 @@ public class Maincontrol : MonoBehaviour
     private GameObject k;
     private GameObject FirstS=null;
     public Text Offset;
+    public Text Offsetshow;
     void Start()
     {
         StartMusic();
+        Offsetshow.text="Offset="+staticsetting.BGMoffset*1000+"ms";
     }
     // Update is called once per frame
     void Update()
@@ -71,22 +73,26 @@ public class Maincontrol : MonoBehaviour
         else trackStartTime=AudioSettings.dspTime-Timeline;
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            if(pause.activeSelf)
-            {
-                double.TryParse(Offset.text,out staticsetting.BGMoffset);
-                staticsetting.BGMoffset=staticsetting.BGMoffset/1000;
-                pause.SetActive(false);
-                Time.timeScale=1;
-                ifpause=false;
-                BGM.Play();
-            }
-            else 
-            {
-                pause.SetActive(true);
-                Time.timeScale=0;
-                ifpause=true;
-                BGM.Pause();
-            }
+            pausejudge();
+        }
+    }
+    public void pausejudge()
+    {
+        if(pause.activeSelf)
+        {
+            double.TryParse(Offset.text,out staticsetting.BGMoffset);
+            staticsetting.BGMoffset=staticsetting.BGMoffset/1000;
+            pause.SetActive(false);
+            Time.timeScale=1;
+            ifpause=false;
+            BGM.Play();
+        }
+        else 
+        {
+            pause.SetActive(true);
+            Time.timeScale=0;
+            ifpause=true;
+            BGM.Pause();
         }
     }
     private void Pressshow()
@@ -224,10 +230,16 @@ public class Maincontrol : MonoBehaviour
         FirstS.transform.SetParent(taikobar.transform);
     }
     public void Delnote(){note.RemoveFirst();}
-    public void Restart()
+    public void ORestart()
     {
         double.TryParse(Offset.text,out staticsetting.BGMoffset);
         staticsetting.BGMoffset=staticsetting.BGMoffset/1000;
+        pause.SetActive(false); 
+        Time.timeScale=1;
+        SceneManager.LoadScene("Taiko");
+    }
+    public void Restart()
+    {
         pause.SetActive(false); 
         Time.timeScale=1;
         SceneManager.LoadScene("Taiko");
