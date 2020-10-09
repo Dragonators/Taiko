@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class Maincontrol : MonoBehaviour
 {
@@ -35,13 +36,23 @@ public class Maincontrol : MonoBehaviour
     public GameObject S100;
     public GameObject S300;
 
-    LinkedList<GameObject> note=new LinkedList<GameObject>();
+    private LinkedList<GameObject> note=new LinkedList<GameObject>();
+    private static LinkedList<double> Cnotetimeline=new LinkedList<double>();
     private GameObject k;
     private GameObject FirstS=null;
     public Text Offset;
     public Text Offsetshow;
+
     void Start()
     {
+        if(staticsetting.mode==2)
+        {
+            Cnotetimeline.Clear();
+            BGM.clip=staticsetting.TBGM;
+            double[] sArray = new double[staticsetting.notetimeline.Count];
+            staticsetting.notetimeline.CopyTo(sArray,0);
+            for(int i=0;i<staticsetting.notetimeline.Count;i++)Cnotetimeline.AddLast(sArray[i]);
+        }
         StartMusic();
         Offsetshow.text="Offset="+staticsetting.BGMoffset*1000+"ms";
     }
@@ -51,10 +62,21 @@ public class Maincontrol : MonoBehaviour
         if(!ifpause)
         {
             Timeline=AudioSettings.dspTime-trackStartTime;
-            if(Timeline>=nextTick*60.0/BPM-Timeoffset)
+            if(staticsetting.mode==1)
             {
-                if(Random.Range(0,2)==1)createnoteB(nextTick*60/BPM);else createnoteR(nextTick*60/BPM);
-                nextTick++;
+                if(Timeline>=nextTick*60.0/BPM-Timeoffset)
+                {
+                    if(Random.Range(0,2)==1)createnoteB(nextTick*60/BPM);else createnoteR(nextTick*60/BPM);
+                    nextTick++;
+                }
+            }
+            if(staticsetting.mode==2)
+            {
+                if(Timeline>=Cnotetimeline.First.Value-Timeoffset)
+                {
+                    if(Random.Range(0,2)==1)createnoteB(Cnotetimeline.First.Value);else createnoteR(Cnotetimeline.First.Value);
+                    Cnotetimeline.RemoveFirst();
+                }
             }
             if(note.Count!=0)
             {
@@ -243,6 +265,12 @@ public class Maincontrol : MonoBehaviour
         pause.SetActive(false); 
         Time.timeScale=1;
         SceneManager.LoadScene("Taiko");
+    }
+    public void backmenu()
+    {
+        pause.SetActive(false); 
+        Time.timeScale=1;
+        SceneManager.LoadScene("selmode");
     }
 
 }

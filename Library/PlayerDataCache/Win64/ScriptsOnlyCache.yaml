@@ -3,6 +3,8 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - Click
     - Maincontrol
+    - selmap
+    - showanime
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     UnityEditor.TestRunner.dll:
@@ -12,12 +14,14 @@ ScriptsOnlyBuild:
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
+    - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
+    - UnityEngine.UI.InputField
     - UnityEngine.UI.Text
   sceneClasses:
-    Assets/Scenes/Tako.unity:
+    Assets/Scenes/Taiko.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -45,17 +49,23 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11806}
     - Class: 114
-      Script: {instanceID: 11984}
+      Script: {instanceID: 11950}
     - Class: 114
-      Script: {instanceID: 12066}
+      Script: {instanceID: 11986}
     - Class: 114
-      Script: {instanceID: 12458}
+      Script: {instanceID: 12068}
     - Class: 114
-      Script: {instanceID: 13000}
+      Script: {instanceID: 12460}
     - Class: 114
-      Script: {instanceID: 13452}
+      Script: {instanceID: 12920}
     - Class: 114
-      Script: {instanceID: 13834}
+      Script: {instanceID: 13004}
+    - Class: 114
+      Script: {instanceID: 13136}
+    - Class: 114
+      Script: {instanceID: 13456}
+    - Class: 114
+      Script: {instanceID: 13838}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -73,6 +83,59 @@ ScriptsOnlyBuild:
     - Class: 224
       Script: {instanceID: 0}
     - Class: 850595691
+      Script: {instanceID: 0}
+    Assets/Scenes/selmode.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 11784}
+    - Class: 114
+      Script: {instanceID: 11806}
+    - Class: 114
+      Script: {instanceID: 11986}
+    - Class: 114
+      Script: {instanceID: 12460}
+    - Class: 114
+      Script: {instanceID: 12920}
+    - Class: 114
+      Script: {instanceID: 13456}
+    - Class: 114
+      Script: {instanceID: 13838}
+    - Class: 114
+      Script: {instanceID: 14654}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
@@ -125,6 +188,12 @@ ScriptsOnlyBuild:
     className: GroupTrack
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: showanime
+  - hash:
+      serializedVersion: 2
       Hash: a5781dc71a671b1ad2b38de19f24b71f
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -167,7 +236,7 @@ ScriptsOnlyBuild:
     className: TMP_InputField
   - hash:
       serializedVersion: 2
-      Hash: 5da6971fc580851cb6f84ea85be25f2a
+      Hash: b54a7bbcb49ab56b35f405c4578a388e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Maincontrol
@@ -294,6 +363,12 @@ ScriptsOnlyBuild:
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: staticsetting
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
     className: RemoteTestResultSender
@@ -317,7 +392,7 @@ ScriptsOnlyBuild:
     className: RawImage
   - hash:
       serializedVersion: 2
-      Hash: 7af849fe978067d202f240e25d788733
+      Hash: 2451c710f582d83cb89d3f72448c7d5c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Click
@@ -507,7 +582,14 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: ce22519877a0d47243e082604b755589
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: selmap
   platform: 19
   scenePathNames:
-  - Assets/Scenes/Tako.unity
+  - Assets/Scenes/selmode.unity
+  - Assets/Scenes/Taiko.unity
   playerPath: "C:/Users/13391/Documents/Taiko\u6587\u4EF6/Taiko.exe"

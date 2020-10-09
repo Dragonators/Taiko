@@ -5,6 +5,9 @@ using UnityEngine;
 public class staticsetting : MonoBehaviour
 {
     public static double BGMoffset=0;
+    public static LinkedList<double> notetimeline=new LinkedList<double>();
+    public static int mode;
+    public static AudioClip TBGM;
     // Start is called before the first frame update
     void Start()
     {

@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/selmode.unity
+    guid: 88fb622d2d90f384dafe5bec14250086
+  - enabled: 1
     path: Assets/Scenes/Taiko.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    guid: e8c254eecf40d7e45bef46533b20e7cb
   m_configObjects: {}
